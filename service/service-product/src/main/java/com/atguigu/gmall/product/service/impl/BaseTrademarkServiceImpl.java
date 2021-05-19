@@ -25,4 +25,10 @@ public class BaseTrademarkServiceImpl implements BaseTrademarkService {
 
         return baseTrademarkIPage;
     }
+
+    @Override
+    public List<BaseTrademark> getTrademarkList() {
+        List<BaseTrademark> baseTrademarks = baseTrademarkMapper.selectList(null);
+        return baseTrademarks;
+    }
 }

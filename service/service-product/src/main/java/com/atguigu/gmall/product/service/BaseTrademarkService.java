@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface BaseTrademarkService {
     IPage<BaseTrademark> baseTrademark(Long page, Long limit);
+
+    List<BaseTrademark> getTrademarkList();
 }

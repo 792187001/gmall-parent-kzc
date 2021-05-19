@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("admin/product/")
 @CrossOrigin
-public class AttrInfoController {
+public class AttrInfoApiController {
 
     @Autowired
     AttrInfoService attrInfoService;

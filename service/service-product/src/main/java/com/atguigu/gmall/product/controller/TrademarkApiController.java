@@ -14,10 +14,18 @@ import java.util.List;
 @RestController
 @RequestMapping("admin/product/")
 @CrossOrigin
-public class TrademarkController {
+public class TrademarkApiController {
 
     @Autowired
     BaseTrademarkService baseTrademarkService;
+
+    @RequestMapping("baseTrademark/getTrademarkList")
+    public Result getTrademarkList(){
+
+        List<BaseTrademark> baseTrademarks=baseTrademarkService.getTrademarkList();
+
+        return Result.ok(baseTrademarks);
+    }
 
     @RequestMapping("baseTrademark/{page}/{limit}")
     public Result baseTrademark(@PathVariable("page") Long page,@PathVariable("limit") Long limit){
