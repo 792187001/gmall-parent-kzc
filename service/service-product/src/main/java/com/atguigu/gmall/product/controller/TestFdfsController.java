@@ -23,7 +23,7 @@ public class TestFdfsController {
         TrackerServer connection = trackerClient.getConnection();
         //获取一个干活的storage
         StorageClient storageClient = new StorageClient(connection,null);//第二个可以指定一个storage
-        //上传文件
+        //上传文件                                                           ‪C:\Users\kzc\Desktop\aa.jpg
         String[] urls = storageClient.upload_appender_file("C:/Users/kzc/Desktop/aa.jpg", "jpg", null);
         String imgUrl = "";
         for (String url : urls) {

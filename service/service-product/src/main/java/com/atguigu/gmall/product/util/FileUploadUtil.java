@@ -1,7 +1,6 @@
 package com.atguigu.gmall.product.util;
 
 import com.atguigu.gmall.common.util.Result;
-import com.atguigu.gmall.product.controller.TestFdfsController;
 import lombok.SneakyThrows;
 import org.csource.common.MyException;
 import org.csource.fastdfs.ClientGlobal;
@@ -29,7 +28,7 @@ public class FileUploadUtil {
     @RequestMapping("fileUpload")
     public Result fileUpload(@RequestParam("file") MultipartFile multipartFile) throws IOException, MyException {
 
-        String imgUrl = "http://192.168.200.130:80";
+        String imgUrl = "http://192.168.200.128:8080";
 
         String path = FileUploadUtil.class.getClassLoader().getResource("tracker.conf").getPath();
 

@@ -19,6 +19,7 @@
             <version>1.0</version>
         </dependency>
 
+
         <!-- redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -33,11 +34,12 @@
         </dependency>
 
         <!-- redisson -->
-        <!--<dependency>-->
-            <!--<groupId>org.redisson</groupId>-->
-            <!--<artifactId>redisson</artifactId>-->
-            <!--<version>3.11.2</version>-->
-        <!--</dependency>-->
+      <!--  <dependency>
+        <groupId>org.redisson</groupId>
+        <artifactId>redisson</artifactId>
+        <version>3.11.2</version>
+        </dependency>-->
+
 
         <!--mybatis-plus-->
         <dependency>

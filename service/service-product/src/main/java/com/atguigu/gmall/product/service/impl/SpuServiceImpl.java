@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.atguigu.gmall.aop.GmallCache;
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.product.mapper.*;
 import com.atguigu.gmall.product.service.SpuService;
@@ -9,7 +10,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.lang.model.element.VariableElement;
 import java.util.List;
 
 @Service
@@ -29,11 +29,11 @@ public class SpuServiceImpl implements SpuService {
     @Override
     public IPage<SpuInfo> spuList(Long page, Long limit, Long category3Id) {
 
-        IPage<SpuInfo> infoIPage = new Page<SpuInfo>(page,limit);
+        IPage<SpuInfo> infoIPage = new Page<SpuInfo>(page, limit);
 
         QueryWrapper<SpuInfo> queryWrapper = new QueryWrapper<>();
 
-        queryWrapper.eq("category3_id",category3Id);
+        queryWrapper.eq("category3_id", category3Id);
 
         IPage<SpuInfo> infoIPageResult = spuInfoMapper.selectPage(infoIPage, queryWrapper);
 
@@ -49,9 +49,9 @@ public class SpuServiceImpl implements SpuService {
     public void saveSpuInfo(SpuInfo spuInfo) {
         spuInfoMapper.insert(spuInfo);
         Long spuId = spuInfo.getId();
- //保存图片信息
+        //保存图片信息
         List<SpuImage> spuImageList = spuInfo.getSpuImageList();
-        if (spuImageList!=null&&spuImageList.size()>0){
+        if (spuImageList != null && spuImageList.size() > 0) {
             for (SpuImage spuImage : spuImageList) {
                 spuImage.setSpuId(spuId);
                 spuImageMapper.insert(spuImage);
@@ -60,10 +60,10 @@ public class SpuServiceImpl implements SpuService {
         //保存spu销售属性
         List<SpuSaleAttr> spuSaleAttrList = spuInfo.getSpuSaleAttrList();
 
-        if (spuSaleAttrList!=null &&spuSaleAttrList.size()>0){
+        if (spuSaleAttrList != null && spuSaleAttrList.size() > 0) {
             for (SpuSaleAttr spuSaleAttr : spuSaleAttrList) {
                 spuSaleAttr.setSpuId(spuId);
-               // spuSaleAttr.setBaseSaleAttrId();
+                // spuSaleAttr.setBaseSaleAttrId();
                 spuSaleAttrMapper.insert(spuSaleAttr);
                 //根据主键保存spu的属性值
                 for (SpuSaleAttrValue spuSaleAttrValue : spuSaleAttr.getSpuSaleAttrValueList()) {
@@ -81,7 +81,7 @@ public class SpuServiceImpl implements SpuService {
     @Override
     public List<SpuImage> spuImageList(Long spuId) {
         QueryWrapper<SpuImage> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("spu_id",spuId);
+        queryWrapper.eq("spu_id", spuId);
         List<SpuImage> spuImages = spuImageMapper.selectList(queryWrapper);
         return spuImages;
     }
@@ -89,15 +89,24 @@ public class SpuServiceImpl implements SpuService {
     @Override
     public List<SpuSaleAttr> spuSaleAttrList(Long spuId) {
         QueryWrapper<SpuSaleAttr> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("spu_id",spuId);
+        queryWrapper.eq("spu_id", spuId);
         List<SpuSaleAttr> spuSaleAttrs = spuSaleAttrMapper.selectList(queryWrapper);
         for (SpuSaleAttr spuSaleAttr : spuSaleAttrs) {
             QueryWrapper<SpuSaleAttrValue> queryWrapperValue = new QueryWrapper<>();
-            queryWrapper.eq("spu_id",spuId);
-            queryWrapper.eq("base_sale_attr_id",spuSaleAttr.getBaseSaleAttrId());
+            queryWrapper.eq("spu_id", spuId);
+            queryWrapper.eq("base_sale_attr_id", spuSaleAttr.getBaseSaleAttrId());
             List<SpuSaleAttrValue> spuSaleAttrValues = spuSaleAttrValueMapper.selectList(queryWrapperValue);
             spuSaleAttr.setSpuSaleAttrValueList(spuSaleAttrValues);
         }
         return null;
+    }
+
+    @GmallCache
+    @Override
+    public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long spuId, Long skuId) {
+
+        List<SpuSaleAttr> spuSaleAttrs = spuSaleAttrMapper.selectSpuSaleAttrListCheckBySku(spuId, skuId);
+
+        return spuSaleAttrs;
     }
 }
