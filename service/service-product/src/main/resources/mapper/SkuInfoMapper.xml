@@ -30,6 +30,7 @@
         AND sav.attr_id = bi.id
         AND bi.id = bv.attr_id
         AND si.tm_id = bt.id
+        and bv.id = sav.value_id
         and c3.id = si.category3_id
         and si.id = #{skuId}
     </select>
