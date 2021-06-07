@@ -62,6 +62,7 @@
     <orderEntry type="module" module-name="model" />
     <orderEntry type="module" module-name="service-search-client" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.29" level="project" />
+    <orderEntry type="module" module-name="service-cart-client" />
     <orderEntry type="module" module-name="web-util" />
     <orderEntry type="module" module-name="common-util" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.10" level="project" />

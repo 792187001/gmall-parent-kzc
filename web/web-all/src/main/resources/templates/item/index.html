@@ -1006,11 +1006,11 @@
             valuesSku: '',
             skuNum: 1,
 
-            selectValuesSkus: [],
+            selectValuesSkus: [], // 选中的属性值的组合(数组)
             isAddCart: true,
 
             spuSaleAttrList: [[${spuSaleAttrList}]],
-            valuesSkuJson: [[${valuesSkuJson}]]
+            valuesSkuJson: [[${valuesSkuJson}]] // 传递的spu下的属性值hash组合(json)
         },
 
         created() {
@@ -1049,11 +1049,11 @@
 
                 var valuesSku = this.selectValuesSkus.join('|')
                 //查看新组装的数据是否存在skuId，如果存在跳到该页面，如果不存在控制选中状态
-                var curSkuId = valuesSkuJson[valuesSku]
+                var curSkuId = valuesSkuJson[valuesSku];// v = json[k]
 
                 if (curSkuId) {
                     if(curSkuId != this.skuId) {
-                        window.location.href = '/' + curSkuId + '.html'
+                        window.location.href = '/' + curSkuId + '.html';// 只有选中的结果不是当前的sku才跳转
                     } else {
                         this.isAddCart = true
                     }

@@ -10,6 +10,36 @@
     <link rel="stylesheet" type="text/css" href="/css/pages-success-cart.css" />
 
     <div th:include="common/head :: head"></div>
+
+    <script>
+        window.onload = function test() {
+            function getUrlSearch(name) {
+                // 未传参，返回空
+                if (!name) return null;
+                // 查询参数：先通过search取值，如果取不到就通过hash来取
+                var after = window.location.search;
+                after = after.substr(1) || window.location.hash.split('?')[1];
+                // 地址栏URL没有查询参数，返回空
+                if (!after) return null;
+                // 如果查询参数中没有"name"，返回空
+                if (after.indexOf(name) === -1) return null;
+
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+                // 当地址栏参数存在中文时，需要解码，不然会乱码
+                var r = decodeURI(after).match(reg);
+                // 如果url中"name"没有值，返回空
+                if (!r) return null;
+
+                return r[2];
+            }
+
+
+            document.getElementById("skuName").innerText = getUrlSearch("skuName");
+            document.getElementById("imgCart").src = getUrlSearch("skuDefaultImg");
+
+
+        }
+    </script>
 </head>
 
 <body>
@@ -22,14 +52,14 @@
         <h3><i class="sui-icon icon-pc-right"></i>商品已成功加入购物车！</h3>
         <div class="goods">
             <div class="left-good">
-                <div class="left-pic"><img th:src="${skuInfo.skuDefaultImg}"></div>
+                <div class="left-pic"><img th:src="${skuInfo?.skuDefaultImg}"></div>
                 <div class="right-info">
-                    <p class="title" th:text="${skuInfo.skuName}"></p>
+                    <p class="title" th:text="${skuInfo?.skuName}"></p>
                     <p class="attr" th:text="${skuNum}">数量</p>
                 </div>
             </div>
             <div class="right-gocart">
-                <a th:href="@{http://item.gmall.com/{id}.html(id=${skuInfo.id})}" class="sui-btn btn-xlarge">查看商品详情</a>
+                <a th:href="@{http://item.gmall.com/{id}.html(id=${skuInfo?.id})}" class="sui-btn btn-xlarge">查看商品详情</a>
                 <a href="/cart.html" class="sui-btn btn-xlarge btn-danger " target="_blank">去购物车结算 > </a>
             </div>
         </div>

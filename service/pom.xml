@@ -16,6 +16,8 @@
         <module>service-product</module>
         <module>service-item</module>
         <module>service-search</module>
+        <module>service-cart</module>
+        <module>service-suer</module>
     </modules>
 
     <dependencies>
